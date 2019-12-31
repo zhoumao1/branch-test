@@ -64,6 +64,7 @@ git@github.com: Permission denied (publickey).
 
 1. 将暂存区中的文件提交到本地仓库中，即打上新版本：`git commit -m "commit_info"`;
 2. 将所有已经使用git管理过的文件暂存后一并提交，跳过add到暂存区的过程：`git commit -a -m "commit_info"`;
+3.  `git commit -am` 提交已在暂存区的文件
 
 ### 分支管理
 
@@ -74,6 +75,32 @@ git@github.com: Permission denied (publickey).
 5. **删除分支**：`git branch -d <branch_name>`
 6. 将当前分支与指定分支进行**合并**：`git merge <branch_name>`
 7. 把远程分支合并到当前分支：`git merge <remote_name>/<branch_name>`，如：`git merge origin/master`如果是单线的历史分支不存在任何需要解决的分歧，只是简单的将HEAD指针前移，所以这种合并过程可以称为快进（Fast forward），而如果是历史分支是分叉的，会以当前分叉的两个分支作为两个祖先，创建新的提交对象；如果在合并分支时，遇到合并冲突需要人工解决后，再才能提交；
+
+#### Git修改本地或远程分支名称
+
+1. 先将本地分支重命名
+
+   ```shell
+   git branch -m oldBranch newBranch
+   ```
+
+2. 删除远程分支（远端无此分支则跳过该步骤）
+
+   ```shell
+   git push --delete origin oldBranch
+   ```
+
+3. 将重命名后的分支推到远端
+
+   ```shell
+   git push origin newBranch
+   ```
+
+4. 把修改后的本地分支与远程分支关联
+
+   ```shell
+   git branch --set-upstream-to origin/newBranch
+   ```
 
 ### 本地仓库上的操作
 
@@ -89,4 +116,33 @@ git@github.com: Permission denied (publickey).
 
 > 转载: [git基本操作，一篇就够了](https://juejin.im/post/5ae072906fb9a07a9e4ce596)
 
-是是是
+
+
+## Tag
+
+### 打标签命令
+
+```shell
+git tag -a 标签名 -m '备注'
+// 例如
+git tag -a v0.1 -m '待开发 聊天'
+```
+
+### 显示指定版本tag
+
+```shell
+git show 标签名
+// 示例
+git show v0.1
+```
+
+
+
+### 推送到远程仓库
+
+```shell
+git push origin v0.1
+```
+
+
+
